@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hearthstone Deck List</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<h1>Hearthstone Deck List Generator</h1>
+		<form>
+			<label for="deck-code">Enter your deck code:</label>
+			<input type="text" id="deck-code" name="deck-code" required />
+			<button type="submit">Generate Deck List</button>
+		</form>
+		<div id="deck-list"></div>
+		<script src="https://unpkg.com/deckstrings@2.2.1/dist/browser.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
