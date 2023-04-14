@@ -7,7 +7,9 @@ function getDeckList(deckListString) {
 	deckList.textContent = 'Loading...';
 	const apiUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json';
 	// Check if the argument matches the expected deck list format
-	const deckListMatch = deckListString.match(/^###\s*(.*?)#\s*Class:\s*(\w+).*#\s*Format:\s*(\w+).*#([\s\S]+)$/);
+	const deckListMatch = deckListString.match(
+		/^###\s*(.*?)#\s*Class:\s*(\w+(?: \w+)?).*#\s*Format:\s*(\w+(?: \w+)?).*#([\s\S]+)$/
+	);
 
 	let deckCode;
 	let deckName = '(Only Available if Copied From HSReplay)';
