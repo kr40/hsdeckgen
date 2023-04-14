@@ -1,4 +1,8 @@
-# HS Deck Generator
-- This is a simple deck generato which provides basic info of the deck code.
-- I will be working on this to add additional features.
-- I made this as practice and a tool I can use for myself
+# HS Deck Info
+
+## !! Still a work in Progress
+
+- Simple app that generates some basic info about the deck
+- This is a simple tool I made for my use, I will keep on adding features to it
+
+## Thanks for checking it out
