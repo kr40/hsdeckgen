@@ -124,14 +124,14 @@ copyDeckCodeButton.addEventListener('click', () => {
 			modal.style.display = 'block';
 			setTimeout(() => {
 				modal.style.display = 'none';
-			}, 500);
+			}, 800);
 		})
 		.catch((error) => {
 			messageElement.textContent = `Error copying deck code to clipboard: ${error}`;
 			modal.style.display = 'block';
 			setTimeout(() => {
 				modal.style.display = 'none';
-			}, 500);
+			}, 800);
 		});
 
 	document.getElementById('deck-code').value = '';
