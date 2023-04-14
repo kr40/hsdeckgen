@@ -54,7 +54,7 @@ function getDeckList(deckListString) {
 				.sort(([typeA], [typeB]) => parseInt(typeA.split(' ')[1]) - parseInt(typeB.split(' ')[1]))
 				.map(([type, count]) => `${type} : ${count}`);
 			const cardTypesList = `${rarityTypes.join('\n')}\n\nMana Curve:\n\n${manaCostTypes.join('\n')}`;
-			deckList.textContent = `Deck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}`;
+			deckList.textContent = `Deck Code:\n\n${deckCodeMatch}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}`;
 		})
 		.catch((error) => {
 			deckList.textContent = 'Error: Failed to fetch deck data.';
