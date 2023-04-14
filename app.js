@@ -1,9 +1,14 @@
 const deckList = document.getElementById('deck-list');
 
-function getDeckList(deckCode) {
+function getDeckList(deckListString) {
 	const apiUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json';
-	const deckString = deckstrings.decode(deckCode);
-	const cardCounts = deckString.cards.reduce((counts, card) => {
+	const deckCodeMatch = deckListString.match(/AAECA[a-zA-Z0-9+/=]+/);
+	if (!deckCodeMatch) {
+		deckList.textContent = 'Error: Invalid deck list string.';
+		return;
+	}
+	const deckCode = deckCodeMatch[0];
+	const cardCounts = deckstrings.decode(deckCode).cards.reduce((counts, card) => {
 		const [dbfId, count] = card;
 		counts[dbfId] = counts[dbfId] ? counts[dbfId] + count : count;
 		return counts;
