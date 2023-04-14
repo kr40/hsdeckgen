@@ -28,12 +28,18 @@
 		<main class="container">
 			<form>
 				<label for="deck-code">Enter your deck code:</label>
-				<input type="text" id="deck-code" name="deck-code" required />
+				<input type="text" id="deck-code" name="deck-code" required placeholder="Paste your Deck Code" />
 				<button type="submit">Generate Deck Info</button>
 			</form>
 			<div id="deck-list"></div>
-			<!-- <button class="copyDeckCode" onclick="copyDeckCode()">Copy Deck Code</button> -->
+			<button class="copyDeckCode" onclick="copyDeckCode()">Copy Deck Code</button>
 		</main>
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p id="modal-message"></p>
+			</div>
+		</div>
 		<footer>
 			<p>Made by <a href="https://github.com/kr40" target="_blank">Kartik Rao</a> with ❤️</p>
 			<a href="https://github.com/kr40/hsdeckgen" target="_blank">Github</a>

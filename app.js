@@ -1,4 +1,7 @@
 const deckList = document.getElementById('deck-list');
+function showCopyDeckCodeButton() {
+	copyDeckCodeButton.style.display = 'block';
+}
 
 function getDeckList(deckListString) {
 	deckList.textContent = 'Loading...';
@@ -70,13 +73,13 @@ function getDeckList(deckListString) {
 				.sort(([typeA], [typeB]) => parseInt(typeA.split(' ')[1]) - parseInt(typeB.split(' ')[1]))
 				.map(([type, count]) => `${type} : ${count}`);
 			const cardTypesList = `${rarityTypes.join('\n')}\n\nMana Curve:\n\n${manaCostTypes.join('\n')}`;
-			deckList.textContent = `Deck Name: ${deckName}\n\nClass: ${deckClass}\nFormat: ${deckFormat}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}\n\nDeck Code:\n\n${deckCode}\n\n`;
+			deckList.textContent = `Deck Name: ${deckName}\n\nClass: ${deckClass}\nFormat: ${deckFormat}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}\n\nPS: If you want to copy the mini version of deck code you copied from HSReplay click the button below!`;
 		})
 		.catch((error) => {
 			deckList.textContent = 'Error: Failed to fetch deck data.';
 		});
-
-	document.getElementById('deck-code').value = '';
+	showCopyDeckCodeButton();
+	deckList.style.display = 'flex';
 }
 
 function getDustCost(rarity) {
@@ -99,3 +102,49 @@ document.querySelector('form').addEventListener('submit', (event) => {
 	const deckCode = document.getElementById('deck-code').value;
 	getDeckList(deckCode);
 });
+
+// Get the modal
+const modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName('close')[0];
+
+// Get the message element
+const messageElement = document.getElementById('modal-message');
+
+// When the user clicks the button, open the modal
+const copyDeckCodeButton = document.querySelector('.copyDeckCode');
+copyDeckCodeButton.addEventListener('click', () => {
+	const deckCode = document.querySelector('#deck-code').value;
+	const deckCodeToCopy = deckCode.match(/AAECA[a-zA-Z0-9+/=]+/)[0];
+	navigator.clipboard
+		.writeText(deckCodeToCopy)
+		.then(() => {
+			messageElement.textContent = `Deck Code Copied to the Clipboard!`;
+			modal.style.display = 'block';
+			setTimeout(() => {
+				modal.style.display = 'none';
+			}, 500);
+		})
+		.catch((error) => {
+			messageElement.textContent = `Error copying deck code to clipboard: ${error}`;
+			modal.style.display = 'block';
+			setTimeout(() => {
+				modal.style.display = 'none';
+			}, 500);
+		});
+
+	document.getElementById('deck-code').value = '';
+});
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+	modal.style.display = 'none';
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+	if (event.target == modal) {
+		modal.style.display = 'none';
+	}
+};
