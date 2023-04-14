@@ -3,14 +3,27 @@ const deckList = document.getElementById('deck-list');
 function getDeckList(deckListString) {
 	deckList.textContent = 'Loading...';
 	const apiUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json';
-	const deckCodeMatch = deckListString.match(/Class:\s*(\w+).*Format:\s*(\w+)/);
-	if (!deckCodeMatch) {
-		deckList.textContent = 'Error: Invalid deck list string.';
-		return;
+	// Check if the argument matches the expected deck list format
+	const deckListMatch = deckListString.match(/^###\s*(.*?)#\s*Class:\s*(\w+).*#\s*Format:\s*(\w+).*#([\s\S]+)$/);
+
+	let deckCode;
+	let deckName = '(Only Available if Copied From HSReplay)';
+	let deckClass = '(Only Available if Copied From HSReplay)';
+	let deckFormat = '(Only Available if Copied From HSReplay)';
+
+	if (deckListMatch) {
+		// Extract the deck code from the deck list
+		deckCode = deckListString.match(/AAECA[a-zA-Z0-9+/=]+/)[0];
+
+		// Extract the deck name, class, and format from the deck list
+		deckName = deckListMatch[1] || deckName;
+		deckClass = deckListMatch[2] || deckClass;
+		deckFormat = deckListMatch[3] || deckFormat;
+	} else {
+		// Assume the argument is a deck code and use it directly
+		deckCode = deckListString;
 	}
-	const deckClass = deckCodeMatch[1] || 'Unavailable'; // set to 'Unavailable' if not found
-	const deckFormat = deckCodeMatch[2] || 'Unavailable'; // set to 'Unavailable' if not found
-	const deckCode = deckListString.match(/AAECA[a-zA-Z0-9+/=]+/)[0];
+
 	const cardCounts = deckstrings.decode(deckCode).cards.reduce((counts, card) => {
 		const [dbfId, count] = card;
 		counts[dbfId] = counts[dbfId] ? counts[dbfId] + count : count;
@@ -57,7 +70,7 @@ function getDeckList(deckListString) {
 				.sort(([typeA], [typeB]) => parseInt(typeA.split(' ')[1]) - parseInt(typeB.split(' ')[1]))
 				.map(([type, count]) => `${type} : ${count}`);
 			const cardTypesList = `${rarityTypes.join('\n')}\n\nMana Curve:\n\n${manaCostTypes.join('\n')}`;
-			deckList.textContent = `Deck Code:\n\n${deckCode}\n\nClass: ${deckClass}\nFormat: ${deckFormat}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}`;
+			deckList.textContent = `Deck Name: ${deckName}\n\nClass: ${deckClass}\nFormat: ${deckFormat}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}\n\nDeck Code:\n\n${deckCode}\n\n`;
 		})
 		.catch((error) => {
 			deckList.textContent = 'Error: Failed to fetch deck data.';
