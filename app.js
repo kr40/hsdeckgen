@@ -75,6 +75,8 @@ function getDeckList(deckListString) {
 		.catch((error) => {
 			deckList.textContent = 'Error: Failed to fetch deck data.';
 		});
+
+	document.getElementById('deck-code').value = '';
 }
 
 function getDustCost(rarity) {

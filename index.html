@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Meta Tags -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Hearthstone Deck List</title>
-		<link rel="stylesheet" href="style.css" />
+
+		<!-- Other Links -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<!-- CSS Reset -->
+		<link href="https://unpkg.com/sanitize.css" rel="stylesheet" />
+		<link href="https://unpkg.com/sanitize.css/forms.css" rel="stylesheet" />
+		<link href="https://unpkg.com/sanitize.css/assets.css" rel="stylesheet" />
+		<link href="https://unpkg.com/sanitize.css/typography.css" rel="stylesheet" />
+		<link href="https://unpkg.com/sanitize.css/reduce-motion.css" rel="stylesheet" />
+
+		<!-- Water.css (Class-less Framework) -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
+
+		<!-- Your Styles -->
+		<link rel="stylesheet" href="/style.css" />
 	</head>
 	<body>
-		<h1>Hearthstone Deck List Generator</h1>
-		<form>
-			<label for="deck-code">Enter your deck code:</label>
-			<input type="text" id="deck-code" name="deck-code" required />
-			<button type="submit">Generate Deck List</button>
-		</form>
-		<div id="deck-list"></div>
+		<header>
+			<h1>Hearthstone Deck Info</h1>
+		</header>
+		<main class="container">
+			<form>
+				<label for="deck-code">Enter your deck code:</label>
+				<input type="text" id="deck-code" name="deck-code" required />
+				<button type="submit">Generate Deck Info</button>
+			</form>
+			<div id="deck-list"></div>
+			<!-- <button class="copyDeckCode" onclick="copyDeckCode()">Copy Deck Code</button> -->
+		</main>
+		<footer>
+			<p>Made by <a href="https://github.com/kr40" target="_blank">Kartik Rao</a> with ❤️</p>
+			<a href="https://github.com/kr40/hsdeckgen" target="_blank">Github</a>
+		</footer>
 		<script src="https://unpkg.com/deckstrings@2.2.1/dist/browser.js"></script>
 		<script src="app.js"></script>
 	</body>
