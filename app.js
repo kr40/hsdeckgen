@@ -1,13 +1,16 @@
 const deckList = document.getElementById('deck-list');
 
 function getDeckList(deckListString) {
+	deckList.textContent = 'Loading...';
 	const apiUrl = 'https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json';
-	const deckCodeMatch = deckListString.match(/AAECA[a-zA-Z0-9+/=]+/);
+	const deckCodeMatch = deckListString.match(/Class:\s*(\w+).*Format:\s*(\w+)/);
 	if (!deckCodeMatch) {
 		deckList.textContent = 'Error: Invalid deck list string.';
 		return;
 	}
-	const deckCode = deckCodeMatch[0];
+	const deckClass = deckCodeMatch[1] || 'Unavailable'; // set to 'Unavailable' if not found
+	const deckFormat = deckCodeMatch[2] || 'Unavailable'; // set to 'Unavailable' if not found
+	const deckCode = deckListString.match(/AAECA[a-zA-Z0-9+/=]+/)[0];
 	const cardCounts = deckstrings.decode(deckCode).cards.reduce((counts, card) => {
 		const [dbfId, count] = card;
 		counts[dbfId] = counts[dbfId] ? counts[dbfId] + count : count;
@@ -54,7 +57,7 @@ function getDeckList(deckListString) {
 				.sort(([typeA], [typeB]) => parseInt(typeA.split(' ')[1]) - parseInt(typeB.split(' ')[1]))
 				.map(([type, count]) => `${type} : ${count}`);
 			const cardTypesList = `${rarityTypes.join('\n')}\n\nMana Curve:\n\n${manaCostTypes.join('\n')}`;
-			deckList.textContent = `Deck Code:\n\n${deckCodeMatch}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}`;
+			deckList.textContent = `Deck Code:\n\n${deckCode}\n\nClass: ${deckClass}\nFormat: ${deckFormat}\n\nDeck List:\n\n${cardList}\n\nCard Rarities:\n\n${cardTypesList}\n\nTotal Number of Cards: ${totalCards}\nTotal Dust Cost: ${totalDust}`;
 		})
 		.catch((error) => {
 			deckList.textContent = 'Error: Failed to fetch deck data.';
