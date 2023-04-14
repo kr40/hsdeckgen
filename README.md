@@ -1,8 +1,8 @@
 # HS Deck Info
 
-## !! Still a work in Progress
+## !! Still a work in Progress !!
 
 - Simple app that generates some basic info about the deck
 - This is a simple tool I made for my use, I will keep on adding features to it
 
-## Thanks for checking it out
+### Thanks for checking it out
