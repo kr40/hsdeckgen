@@ -101,3 +101,23 @@ footer {
 .copyDeckCode {
 	display: none;
 }
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+form button {
+	margin-top: 20px; /* Add margin-top for some spacing */
+}
+
+form input {
+	margin-top: 10px; /* Add margin-top for some spacing */
+	text-align: center;
+}
+
+form label {
+	font-size: 20px; /* Add margin-top for some spacing */
+}
