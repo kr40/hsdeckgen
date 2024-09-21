@@ -53,7 +53,22 @@ function formatSetName(setName) {
 function getRarityColor(rarity) {
 	switch (rarity) {
 		case 'COMMON':
-			return 'text-gray-700 dark:text-gray-300'; // Darker in light mode, lighter in dark mode
+			return 'bg-gray-400 dark:bg-gray-600';
+		case 'RARE':
+			return 'bg-blue-500 dark:bg-blue-600';
+		case 'EPIC':
+			return 'bg-purple-500 dark:bg-purple-600';
+		case 'LEGENDARY':
+			return 'bg-orange-500 dark:bg-orange-600';
+		default:
+			return 'bg-gray-300 dark:bg-gray-700';
+	}
+}
+
+function getRarityTextColor(rarity) {
+	switch (rarity) {
+		case 'COMMON':
+			return 'text-gray-700 dark:text-gray-300';
 		case 'RARE':
 			return 'text-blue-600 dark:text-blue-400';
 		case 'EPIC':
@@ -174,23 +189,25 @@ function getDeckList(deckListString) {
                                 ${sortedCards
 																	.map(
 																		(card) => `
-                                <li class="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden shadow-sm p-2">
-                                    <div class="w-8 h-8 flex-shrink-0 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                                <li class="flex items-center ${getRarityColor(
+																	card.rarity
+																)} rounded-lg overflow-hidden shadow-sm pl-2">
+                                    <div class="w-8 h-8 flex-shrink-0 bg-white bg-opacity-20 dark:bg-opacity-10 rounded-full flex items-center justify-center text-white font-bold text-sm mr-2">
                                         ${card.cost}
                                     </div>
-                                    <div class="flex-grow flex flex-col justify-center">
-                                        <span class="${getRarityColor(card.rarity)} text-sm font-medium">${
-																			card.name
-																		}</span>
-                                        <span class="text-gray-600 dark:text-gray-400 text-xs">${card.set}</span>
+                                    <div class="flex-grow flex flex-col justify-center py-2 px-3">
+                                        <span class="text-white dark:text-gray-200 text-sm font-medium">${
+																					card.name
+																				}</span>
+                                        <span class="text-gray-200 dark:text-gray-300 text-xs">${card.set}</span>
                                     </div>
                                     <div class="text-right mr-3">
-                                        <span class="${getRarityColor(card.rarity)} text-xs font-medium">${
-																			card.rarity
-																		}</span>
+                                        <span class="text-white dark:text-gray-200 text-xs font-medium">${
+																					card.rarity
+																				}</span>
                                     </div>
-                                    <div class="w-8 h-8 flex-shrink-0 bg-gray-300 dark:bg-gray-500 rounded-full flex items-center justify-center">
-                                        <span class="text-gray-800 dark:text-white font-bold text-sm">
+                                    <div class="w-8 h-8 flex-shrink-0 bg-white bg-opacity-20 dark:bg-opacity-10 rounded-full flex items-center justify-center mr-2">
+                                        <span class="text-white dark:text-gray-200 font-bold text-sm">
                                             x${card.count}
                                         </span>
                                     </div>
@@ -240,7 +257,7 @@ function getDeckList(deckListString) {
 																			.map(
 																				([rarity, count]) => `
                                         <li class="flex justify-between items-center">
-                                            <span class="${getRarityColor(rarity)} text-sm">${rarity}</span>
+                                            <span class="${getRarityTextColor(rarity)} text-sm">${rarity}</span>
                                             <span class="bg-white dark:bg-gray-600 px-2 py-1 rounded-full text-xs text-gray-800 dark:text-white">${count}</span>
                                         </li>
                                     `
