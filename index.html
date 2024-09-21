@@ -1,48 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 	<head>
-		<!-- Meta Tags -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-		<!-- CSS Reset -->
-		<link href="https://unpkg.com/sanitize.css" rel="stylesheet" />
-		<link href="https://unpkg.com/sanitize.css/forms.css" rel="stylesheet" />
-		<link href="https://unpkg.com/sanitize.css/assets.css" rel="stylesheet" />
-		<link href="https://unpkg.com/sanitize.css/typography.css" rel="stylesheet" />
-		<link href="https://unpkg.com/sanitize.css/reduce-motion.css" rel="stylesheet" />
-
-		<!-- Page Title -->
 		<title>Hearthstone Deck Info</title>
-
-		<!-- Water.css (Class-less Framework) -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
-
-		<!-- Your Styles -->
-		<link rel="stylesheet" href="/style.css" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+		<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: ['Roboto', 'sans-serif'],
+						},
+					},
+				},
+			};
+		</script>
+		<style type="text/tailwind">
+			@layer utilities {
+				.content-auto {
+					content-visibility: auto;
+				}
+			}
+		</style>
 	</head>
-	<body>
-		<header>
-			<h1>Hearthstone Deck Info</h1>
+	<body
+		class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen flex flex-col transition-colors duration-200">
+		<header class="bg-white dark:bg-gray-800 shadow-md py-6 px-4">
+			<div class="container mx-auto flex justify-between items-center">
+				<h1 class="text-3xl font-bold">Hearthstone Deck Info</h1>
+				<button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+					<svg class="w-6 h-6 text-gray-800 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+					</svg>
+				</button>
+			</div>
 		</header>
-		<main class="container">
-			<form>
-				<label for="deck-code">Enter your deck code:</label>
-				<input type="text" id="deck-code" name="deck-code" required placeholder="Paste your Deck Code" />
-				<button type="submit">Generate Deck Info</button>
+		<main class="container mx-auto px-4 flex-grow py-8">
+			<form class="max-w-md mx-auto mb-8">
+				<label for="deck-code" class="block text-lg font-medium mb-2">Enter your deck code:</label>
+				<input
+					type="text"
+					id="deck-code"
+					name="deck-code"
+					required
+					placeholder="Paste your Deck Code"
+					class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white" />
+				<button
+					type="submit"
+					class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+					Generate Deck Info
+				</button>
 			</form>
-			<div id="deck-list"></div>
-			<button class="copyDeckCode" onclick="copyDeckCode()">Copy Deck Code</button>
+			<div id="deck-list" class="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hidden"></div>
 		</main>
-		<div id="myModal" class="modal">
-			<div class="modal-content">
-				<span class="close">&times;</span>
-				<p id="modal-message"></p>
+		<div id="myModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+			<div class="modal-content bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+				<span class="close text-gray-500 dark:text-gray-400 text-2xl font-bold float-right cursor-pointer"
+					>&times;</span
+				>
+				<p id="modal-message" class="text-center text-lg"></p>
 			</div>
 		</div>
-		<footer>
-			<p>Made by <a href="https://github.com/kr40" target="_blank">Kartik Rao</a> with ❤️</p>
-			<a href="https://github.com/kr40/hsdeckgen" target="_blank">⭐ on Github</a>
+		<footer class="bg-white dark:bg-gray-800 shadow-md py-4 mt-12">
+			<p class="text-center">
+				Made by
+				<a href="https://github.com/kr40" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline"
+					>Kartik Rao</a
+				>
+				with ❤️
+			</p>
+			<a
+				href="https://github.com/kr40/hsdeckgen"
+				target="_blank"
+				class="block text-center mt-2 text-blue-600 dark:text-blue-400 hover:underline"
+				>⭐ on Github</a
+			>
 		</footer>
 		<script src="https://unpkg.com/deckstrings@2.2.1/dist/browser.js"></script>
 		<script src="app.js"></script>
