@@ -1,54 +1,35 @@
 # Hearthstone Deck Info
 
-A web application that decodes and displays detailed information about Hearthstone decks.
+A simple web app that helps you understand your Hearthstone decks better.
 
-## Features
+## What It Does
 
-- **Deck Decoding**: Paste your Hearthstone deck code to view detailed information
-- **Card List**: View all cards in the deck with their mana cost, name, set, and rarity
-- **Deck Statistics**: See total cards, dust cost, rarity breakdown, and mana curve
-- **Dark Mode**: Toggle between light and dark themes
-- **Responsive Design**: Works on desktop and mobile devices
+This app lets you paste your Hearthstone deck code and instantly see:
 
-## Technologies Used
-
-- HTML/CSS/JavaScript
-- Tailwind CSS for styling
-- Deckstrings library for deck code parsing
-- HearthstoneJSON API for card data
-
-## Project Structure
-
-```
-├── css/
-│   └── styles.css        # Custom styles
-├── js/
-│   ├── app.js            # Main application logic
-│   └── utils.js          # Utility functions
-├── index.html            # Main HTML file
-└── README.md             # Project documentation
-```
+- All cards in your deck with their details
+- Total dust cost to craft the deck
+- Deck analysis with suggestions on how to play it
+- Mana curve visualization
+- Card preview when hovering over card names
 
 ## How to Use
 
-1. Open the application in your browser
-2. Paste a Hearthstone deck code in the input field
-3. Click "Generate Deck Info" to view the deck details
+1. Copy a deck code from Hearthstone or HSReplay
+2. Paste it into the app
+3. Click "Generate Deck Info"
+4. Browse your deck information and analysis
 
-## Deck Code Format
+## Features
 
-The application accepts:
-- Raw deck codes (e.g., `AAECAZIRAA==`)
-- Full deck lists copied from HSReplay
+- **Card Images**: Hover over any card to see its full image
+- **Deck Analysis**: Get insights about your deck type and strategy
+- **Mobile Friendly**: Works on phones and tablets too
+- **Easy Sharing**: Copy your deck code with one click
 
-## Development
+## Try It Out
 
-To run this project locally:
+Visit the [Hearthstone Deck Info](https://hsdeckgen.netlify.app/) site to try it out!
 
-1. Clone the repository
-2. Start a local server (e.g., `http-server`)
-3. Open `http://localhost:8080` in your browser
+---
 
-## License
-
-MIT
+Made by [Kartik Rao](https://github.com/kr40) with ❤️
