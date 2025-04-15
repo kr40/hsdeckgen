@@ -1,0 +1,208 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Cinzel:wght@500;700&display=swap');
+
+/* Main Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    font-family: 'Lato', sans-serif;
+    color: #fff;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+/* Ensure content stretches to push footer down */
+.flex-grow {
+    flex-grow: 1;
+}
+
+/* Form styles */
+.deck-form {
+    position: relative;
+}
+
+.deck-form input {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.deck-form input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+}
+
+.deck-form input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.deck-form button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.deck-form button:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.deck-form button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Card display styling */
+#deck-list {
+    transition: all 0.5s ease;
+}
+
+/* Card hover effects */
+.card-item {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    will-change: transform, box-shadow;
+}
+
+.card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    border-color: rgba(255, 185, 72, 0.7);
+}
+
+.card-rarities li, .deck-info-card {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 185, 72, 0.3);
+    transition: all 0.25s ease;
+}
+
+.card-rarities li:hover {
+    transform: translateX(3px);
+    border-color: rgba(255, 185, 72, 0.7);
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 50;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    max-width: 90%;
+    width: 400px;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal:not(.hidden) .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(255, 185, 72, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(255, 185, 72, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(255, 185, 72, 0.5); }
+}
+
+/* Deck list animations */
+#deck-list:not(.hidden) {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Special rarity styles */
+.LEGENDARY {
+    animation: glow 3s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+}
+
+/* Dark mode overrides */
+.dark {
+    /* Colors already handled by main theme */
+}
+
+/* Add card preview styles */
+#card-preview {
+    border-radius: 12px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    z-index: 1000;
+}
+
+#card-preview.scale-100 {
+    opacity: 1;
+    transform: scale(1);
+}

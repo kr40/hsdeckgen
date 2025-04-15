@@ -4,86 +4,119 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Hearthstone Deck Info</title>
+		<!-- Tailwind CSS -->
 		<script src="https://cdn.tailwindcss.com"></script>
-		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 		<script>
 			tailwind.config = {
 				darkMode: 'class',
 				theme: {
 					extend: {
 						fontFamily: {
-							sans: ['Roboto', 'sans-serif'],
+							sans: ['Lato', 'sans-serif'],
+							display: ['Cinzel', 'serif'],
+						},
+						colors: {
+							hearthstone: {
+								gold: '#FFB948',
+								brown: '#4D3829',
+								red: '#A02C2C',
+								blue: '#395A9F',
+								dark: '#2C1F16',
+							},
+						},
+						backgroundImage: {
+							'hearthstone-pattern': "url('https://i.imgur.com/RVKzpVM.jpg')",
 						},
 					},
 				},
 			};
 		</script>
-		<style type="text/tailwind">
-			@layer utilities {
-				.content-auto {
-					content-visibility: auto;
-				}
-			}
-		</style>
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Cinzel:wght@500;700&display=swap"
+			rel="stylesheet" />
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="css/styles.css" />
 	</head>
-	<body
-		class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen flex flex-col transition-colors duration-200">
-		<header class="bg-white dark:bg-gray-800 shadow-md py-6 px-4">
-			<div class="container mx-auto flex justify-between items-center">
-				<h1 class="text-3xl font-bold">Hearthstone Deck Info</h1>
-				<button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-					<svg class="w-6 h-6 text-gray-800 dark:text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-					</svg>
-				</button>
+	<body class="bg-hearthstone-pattern bg-cover bg-fixed text-gray-100 min-h-screen flex flex-col">
+		<!-- Card preview element for hover -->
+		<div id="card-preview" class="fixed w-64 h-96 pointer-events-none hidden"></div>
+
+		<div class="bg-black bg-opacity-70 flex-grow flex flex-col min-h-screen">
+			<header class="bg-hearthstone-dark bg-opacity-90 shadow-lg py-6 px-4 border-b-4 border-hearthstone-gold">
+				<div class="container mx-auto">
+					<h1 class="text-3xl font-bold text-hearthstone-gold font-display text-center">Hearthstone Deck Info</h1>
+				</div>
+			</header>
+
+			<main class="container mx-auto px-4 flex-grow flex flex-col py-12">
+				<div class="max-w-4xl mx-auto w-full">
+					<div
+						class="bg-hearthstone-dark bg-opacity-90 rounded-lg shadow-xl p-8 border-2 border-hearthstone-gold mb-10">
+						<h2 class="text-2xl font-display text-hearthstone-gold mb-6 text-center">Enter Your Deck Code</h2>
+						<form class="deck-form">
+							<input
+								type="text"
+								id="deck-code"
+								name="deck-code"
+								required
+								placeholder="Paste your Deck Code here..."
+								class="w-full px-4 py-3 bg-black bg-opacity-50 border-2 border-hearthstone-brown focus:border-hearthstone-gold rounded-md focus:outline-none text-white placeholder-gray-400 mb-4" />
+							<button
+								type="submit"
+								class="w-full bg-gradient-to-r from-hearthstone-gold to-yellow-600 text-hearthstone-brown font-bold py-3 px-6 rounded-md hover:from-yellow-500 hover:to-hearthstone-gold transition duration-300 shadow-lg transform hover:scale-105">
+								Generate Deck Info
+							</button>
+						</form>
+					</div>
+
+					<div
+						id="deck-list"
+						class="mt-8 bg-hearthstone-dark bg-opacity-90 p-6 rounded-lg shadow-xl border-2 border-hearthstone-brown hidden"></div>
+				</div>
+
+				<!-- Push footer to bottom if content is short -->
+				<div class="flex-grow"></div>
+			</main>
+
+			<div id="myModal" class="modal hidden">
+				<div class="modal-content bg-hearthstone-dark border-2 border-hearthstone-gold p-6 rounded-lg shadow-2xl">
+					<span class="close text-hearthstone-gold text-2xl font-bold float-right cursor-pointer">&times;</span>
+					<p id="modal-message" class="text-center text-white text-lg font-display"></p>
+				</div>
 			</div>
-		</header>
-		<main class="container mx-auto px-4 flex-grow py-8">
-			<form class="max-w-md mx-auto mb-8">
-				<label for="deck-code" class="block text-lg font-medium mb-2">Enter your deck code:</label>
-				<input
-					type="text"
-					id="deck-code"
-					name="deck-code"
-					required
-					placeholder="Paste your Deck Code"
-					class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white" />
-				<button
-					type="submit"
-					class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-					Generate Deck Info
-				</button>
-			</form>
-			<div id="deck-list" class="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hidden"></div>
-		</main>
-		<div id="myModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-			<div class="modal-content bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-				<span class="close text-gray-500 dark:text-gray-400 text-2xl font-bold float-right cursor-pointer"
-					>&times;</span
-				>
-				<p id="modal-message" class="text-center text-lg"></p>
-			</div>
+
+			<footer class="bg-hearthstone-dark bg-opacity-90 shadow-lg py-6 border-t-4 border-hearthstone-gold mt-auto">
+				<div class="container mx-auto px-4">
+					<div class="flex flex-col md:flex-row justify-between items-center">
+						<p class="text-center mb-4 md:mb-0">
+							Made by
+							<a href="https://github.com/kr40" target="_blank" class="text-hearthstone-gold hover:underline">
+								Kartik Rao
+							</a>
+							with ❤️
+						</p>
+						<div class="flex items-center">
+							<a
+								href="https://github.com/kr40/hsdeckgen"
+								target="_blank"
+								class="flex items-center text-hearthstone-gold hover:underline">
+								<svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+									<path
+										fill-rule="evenodd"
+										d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+										clip-rule="evenodd"></path>
+								</svg>
+								Star on GitHub
+							</a>
+						</div>
+					</div>
+				</div>
+			</footer>
 		</div>
-		<footer class="bg-white dark:bg-gray-800 shadow-md py-4 mt-12">
-			<p class="text-center">
-				Made by
-				<a href="https://github.com/kr40" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline"
-					>Kartik Rao</a
-				>
-				with ❤️
-			</p>
-			<a
-				href="https://github.com/kr40/hsdeckgen"
-				target="_blank"
-				class="block text-center mt-2 text-blue-600 dark:text-blue-400 hover:underline"
-				>⭐ on Github</a
-			>
-		</footer>
+
+		<!-- Scripts -->
 		<script src="https://unpkg.com/deckstrings@2.2.1/dist/browser.js"></script>
-		<script src="app.js"></script>
+		<script type="module" src="js/app.js"></script>
 	</body>
 </html>
